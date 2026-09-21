@@ -1,36 +1,36 @@
+# Working Agreements
+
+Shared defaults for coding tasks. Use project instructions for repository-specific commands and conventions.
+
 ## Implementation
 
-- Read the relevant code, tests, and local instructions before editing.
-- Before implementation, ask clarifying questions about any remaining material ambiguity that affects scope, behavior, interfaces, or acceptance criteria. Do not proceed on material assumptions.
-- Make the smallest, simplest change that fully satisfies the request.
-- Do not invent requirements, broaden scope, or add speculative abstractions or dependencies.
-- Follow existing conventions and preserve unrelated behavior and work.
-- Write clear code. Comment only non-obvious rationale, invariants, or constraints.
+- Read applicable instructions and relevant code and tests before editing.
+- Resolve questions from the repository first. Ask the user before proceeding when a remaining ambiguity materially affects scope, behavior, interfaces, or acceptance criteria.
+- Make the smallest, simplest change that fully satisfies the request. Do not invent requirements or add unrelated changes, speculative abstractions, or unnecessary dependencies.
+- Follow existing conventions and preserve unrelated behavior. Comment only non-obvious rationale, invariants, or constraints.
+- Add or update focused tests for behavior changes; reproduce bugs before fixing them when practical.
 
 ## Delegation and Parallel Work
 
-- The main agent's primary role is orchestration: planning, decomposition, delegation, coordination, review, user communication, and handling additional work—not hands-on execution.
-- Delegate repository exploration, implementation, testing, and verification to subagents by default. Do not occupy the main agent with substantial work that can be delegated.
+- When subagents are available, the main agent focuses on planning, delegation, coordination, and user communication; delegate substantial exploration, implementation, and verification by default.
+- The main agent handles brief tasks, work requiring its broader context, and work that cannot be delegated with the available tools.
 - Parallelize independent work, including planning and design when useful.
 - Use the tool's default subagent model for routine work; use the same model as the main agent for work requiring substantial reasoning, such as complex planning or design.
-- The main agent may directly handle only brief, local tasks that do not benefit from delegation, as well as integration, conflict resolution, shared UI control, or work that requires its broader context.
-- Give each delegated task a single owner with explicit scope, deliverables, dependencies, and verification criteria.
-- Concurrent writes must not overlap in files, mutable state, or contracts.
-- Shared files and cross-cutting contracts must have a single owner.
+- Give each delegated task one owner, a clear scope, relevant context and constraints, dependencies, deliverables, and verification criteria.
+- Keep concurrent writes separate. Assign one owner to each shared file, mutable resource, or cross-cutting contract.
 - Only the main agent may control shared desktop or browser sessions (computer use). Subagents may run isolated headless browser tests without accessing shared sessions.
-- The main agent remains accountable for integration, review of the final diff and verification results, and the accuracy of the completion report.
+- The main agent integrates results, resolves conflicts, and reviews the final diff and verification evidence before reporting completion.
 
 ## Completion
 
-- Run verification proportional to the change, starting with focused checks and expanding based on risk and blast radius.
-- Never weaken or bypass tests or checks to make a change pass.
-- Do not claim completion without relevant verification. State exactly what was not verified and why.
-- Distinguish failures caused by the current change from pre-existing failures.
-- Report what changed, the checks run and their results, unverified areas, and remaining risks or assumptions.
+- Run the project's relevant checks, starting with focused checks and expanding based on risk and blast radius.
+- Never weaken or bypass tests or checks merely to make a change pass.
+- Report what changed, checks and results, anything not verified and why, and remaining risks or assumptions. Distinguish pre-existing failures from failures introduced by the change.
+- Do not claim completion without relevant verification or present unperformed checks as passed.
 
 ## Git
 
-- Do not perform version-control operations that change local or remote repository state unless explicitly requested.
-- Before any requested version-control write, inspect the working tree and relevant diffs.
-- Commit only changes made for the current task.
-- Treat pre-existing changes as user-owned. Never discard, overwrite, stage, or commit unrelated work.
+- Inspect the working tree and relevant diffs before editing and before Git write operations.
+- Perform Git write operations (such as staging, committing, branching, or pushing) only when requested by the user. Read-only inspection is allowed.
+- Treat pre-existing changes as user-owned. Never discard, overwrite, stage, or commit unrelated work; stage and commit only changes made for the current task.
+- Never commit secrets or credentials.
