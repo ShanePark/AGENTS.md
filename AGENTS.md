@@ -1,14 +1,11 @@
-# Working Agreements
-
-Shared defaults for coding tasks. Use project instructions for repository-specific commands and conventions.
-
 ## Implementation
 
-- Read applicable instructions and relevant code and tests before editing.
+- Read applicable instructions and relevant code, tests, and documentation before editing. Use the repository's existing tooling and commands.
 - Resolve questions from the repository first. Ask the user before proceeding when a remaining ambiguity materially affects scope, behavior, interfaces, or acceptance criteria.
 - Make the smallest, simplest change that fully satisfies the request. Do not invent requirements or add unrelated changes, speculative abstractions, or unnecessary dependencies.
 - Follow existing conventions and preserve unrelated behavior. Comment only non-obvious rationale, invariants, or constraints.
-- Add or update focused tests for behavior changes; reproduce bugs before fixing them when practical.
+- Check unfamiliar APIs against installed code or version-matched official documentation rather than guessing.
+- Reproduce bugs before fixing them when practical. Add or update focused tests as needed to cover changed behavior, and keep affected documentation accurate.
 
 ## Delegation and Parallel Work
 
@@ -21,16 +18,18 @@ Shared defaults for coding tasks. Use project instructions for repository-specif
 - Only the main agent may control shared desktop or browser sessions (computer use). Subagents may run isolated headless browser tests without accessing shared sessions.
 - The main agent integrates results, resolves conflicts, and reviews the final diff and verification evidence before reporting completion.
 
-## Completion
+## Verification and Completion
 
 - Run the project's relevant checks, starting with focused checks and expanding based on risk and blast radius.
+- Review the final diff against the request for correctness, regressions, and unnecessary changes. Fix confirmed in-scope issues, then repeat review and affected checks.
 - Never weaken or bypass tests or checks merely to make a change pass.
-- Report what changed, checks and results, anything not verified and why, and remaining risks or assumptions. Distinguish pre-existing failures from failures introduced by the change.
+- Report what changed, checks performed and results, anything not verified and why, and remaining risks or assumptions. Do not label failures pre-existing without evidence.
 - Do not claim completion without relevant verification or present unperformed checks as passed.
 
-## Git
+## Git and Workspace Safety
 
 - Inspect the working tree and relevant diffs before editing and before Git write operations.
-- Perform Git write operations (such as staging, committing, branching, or pushing) only when requested by the user. Read-only inspection is allowed.
-- Treat pre-existing changes as user-owned. Never discard, overwrite, stage, or commit unrelated work; stage and commit only changes made for the current task.
-- Never commit secrets or credentials.
+- Perform Git write operations (such as staging, committing, branching, pushing, or merging) only when requested by the user. Read-only inspection is allowed.
+- Preserve pre-existing and concurrent work. Stage and commit only task-owned changes, using individual hunks in files with unrelated edits; never discard, overwrite, or stash unrelated changes.
+- Do not expose secrets or credentials in code, logs, commits, or reports.
+- Clean up temporary files and processes you created, without disturbing existing sessions or services.
